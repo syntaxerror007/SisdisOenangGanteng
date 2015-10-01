@@ -1,0 +1,4 @@
+defaultName: Stranger
+
+logging:
+  level: INFO
