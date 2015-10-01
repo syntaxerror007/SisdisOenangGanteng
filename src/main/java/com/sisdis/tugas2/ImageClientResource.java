@@ -1,6 +1,7 @@
 package com.sisdis.tugas2;
 
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.sisdis.tugas2.Representation.ImageFile;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -37,14 +38,11 @@ public class ImageClientResource {
                 line += line_temp;
             }
             reader.close();
-
-            JSONObject jsonObject = new JSONObject(line);
-            String isiBerkas = (String) jsonObject.get("isi_berkas");
-            String lokasiBerkas = jsonObject.getString("lokasi_berkas");
-            String ukuranBerkas = jsonObject.getString("ukuran_berkas");
-            return Response.ok("<img src='data:image/jpg;base64, "+isiBerkas+"' /><br>" +
-                    "Lokasi pada server : " + lokasiBerkas + "<br>" +
-                    "Ukuran : " + ukuranBerkas).build();
+            Gson gson = new Gson();
+            final ImageFile imageFile = gson.fromJson(line, ImageFile.class);
+            return Response.ok("<img src='data:image/jpg;base64, "+imageFile.getIsi_berkas()+"' /><br>" +
+                    "Lokasi pada server : " + imageFile.getLokasi_berkas() + "<br>" +
+                    "Ukuran : " + imageFile.getUkuran_berkas()).build();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
