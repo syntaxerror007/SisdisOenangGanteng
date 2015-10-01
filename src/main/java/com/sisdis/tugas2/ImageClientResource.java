@@ -48,6 +48,6 @@ public class ImageClientResource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return Response.ok("Not Found").build();
     }
 }

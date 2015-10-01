@@ -45,11 +45,11 @@ public class ImageServerResource {
                 String data = (new BASE64Encoder()).encode(os.toByteArray());
                 isiBerkas = data;
                 ukuran = input.length()/1024+" KB";
+                return Response.ok(new ImageFile(isiBerkas, path, ukuran)).build();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return Response.ok(new ImageFile(isiBerkas, path, ukuran)).build();
+        return null;
     }
 }
